@@ -213,11 +213,8 @@
                 };
 
                 eventSource.onerror = function(e) {
-                    if (this.readyState == EventSource.CONNECTING) {
-                        console.log("Соединение порвалось, пересоединяемся...");
-                    } else {
-                        console.log("Ошибка, состояние: " + this.readyState);
-                    }
+                    eventSource.close();
+                    console.log("Соединение закрыто");
                 };
 
                 eventSource.addEventListener('bye', function(e) {
