@@ -2,12 +2,268 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Пример HTML страницы</title>
+        <title>Поисковый аггрегатор</title>
+        <style type="text/css">
+            body {
+                width: 650px;
+                margin: 40px auto;
+                font-family: 'trebuchet MS', 'Lucida sans', Arial;
+                font-size: 14px;
+                color: #444;
+            }
+            table {
+                *border-collapse: collapse; /* IE7 и раньше */
+                border-spacing: 0;
+                width: 100%;
+            }
+            .bordered {
+                border: solid #ccc 1px;
+                -moz-border-radius: 6px;
+                -webkit-border-radius: 6px;
+                border-radius: 6px;
+                -webkit-box-shadow: 0 1px 1px #ccc;
+                -moz-box-shadow: 0 1px 1px #ccc;
+                box-shadow: 0 1px 1px #ccc;
+            }
+            .red {
+                background: #FAE9E5;
+            }
+            .green {
+                background: #E8F4D9;
+            }
+            .yellow {
+                background: #FEFFB7;
+            }
+            .purple {
+                background: #F2CAF3;
+            }
+            .bordered td, .bordered th {
+                border-left: 1px solid #ccc;
+                border-top: 1px solid #ccc;
+                padding: 10px;
+                text-align: left;
+            }
+            .bordered th {
+                background-color: #dce9f9;
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+                background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+                background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+                -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+                border-top: none;
+                text-shadow: 0 1px 0 rgba(255,255,255,.5);
+            }
+            .bordered td:first-child, .bordered th:first-child {
+                border-left: none;
+            }
+            .bordered th:first-child {
+                -moz-border-radius: 6px 0 0 0;
+                -webkit-border-radius: 6px 0 0 0;
+                border-radius: 6px 0 0 0;
+            }
+            .bordered th:last-child {
+                -moz-border-radius: 0 6px 0 0;
+                -webkit-border-radius: 0 6px 0 0;
+                border-radius: 0 6px 0 0;
+            }
+            .bordered th:only-child{
+                -moz-border-radius: 6px 6px 0 0;
+                -webkit-border-radius: 6px 6px 0 0;
+                border-radius: 6px 6px 0 0;
+            }
+
+            .help{cursor:help;}
+            .search {
+                /* устанавливаем необходимую ширину формы в зависимости от дизайна
+                ** форма без проблем растягивается */
+                width: 100%;
+
+                /* кнопку отправки будем позиционировать абсолютно,
+                ** поэтому необходимо это свойство */
+                position: relative;
+            }
+
+            .search input {
+                /* отключаем бордюры у инпутов */
+                border: none;
+            }
+
+            /* стили для поля ввода */
+            .search .input {
+                /* растягиваем поле ввода на всю ширину формы */
+                width: 100%;
+
+                /* за счет верхнего (8px) и нижнего (9px) внутренних отступов
+                ** регулируем высоту формы
+                ** внутренний отступ справа (37px) делаем больше левого,
+                ** т.к. там будет размещена кнопка отправки	*/
+                padding: 8px 37px 9px 15px;
+
+                /* чтобы ширина поля ввода (100%) включала в себя внутренние отступы */
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+
+                /* добавляем внутренние тени */
+                box-shadow: inset 0 0 5px rgba(0,0,0,0.1), inset 0 1px 2px rgba(0,0,0,0.3);
+
+                /* закругляем углы */
+                border-radius: 20px;
+
+                background: #EEE;
+                font: 13px Tahoma, Arial, sans-serif;
+                color: #555;
+                outline: none;
+            }
+
+            /* меняем оформление поля ввода при фокусе */
+            .search .input:focus {
+                box-shadow: inset 0 0 5px rgba(0,0,0,0.2), inset 0 1px 2px rgba(0,0,0,0.4);
+                background: #E8E8E8;
+                color: #333;
+            }
+
+            /* оформляем кнопку отправки */
+            .search .submit {
+                /* позиционируем кнопку абсолютно от правого края формы */
+                position: absolute;
+                top: 0;
+                right: 0;
+
+                width: 37px;
+
+                /* растягиваем кнопку на всю высоту формы */
+                height: 100%;
+
+                cursor: pointer;
+                background: url(https://lh4.googleusercontent.com/-b-5aBxcxarY/UAfFW9lVyjI/AAAAAAAABUg/gQtEXuPuIds/s13/go.png) 50% no-repeat;
+
+                /* добавляем прозрачность кнопке отправки */
+                opacity: 0.5;
+            }
+
+            /* при наведении курсора меняем прозрачность кнопки отправки */
+            .search .submit:hover {
+                opacity: 0.8;
+            }
+
+            /* данное свойство необходимо для того, чтобы в браузерах
+            ** Chrome и Safari можно было стилизовать инпуты */
+            input[type="search"] {
+                -webkit-appearance: none;
+            }
+
+            .hidden {display:none;}
+
+            @keyframes fadeIn {
+                to {
+                    opacity: 1;
+                }
+            }
+
+            .fade-in {
+                opacity: 0;
+                animation: fadeIn .5s ease-in 1 forwards;
+            }
+
+            .is-paused {
+                animation-play-state: paused;
+            }
+        </style>
+
+        <script type="text/javascript">
+            var eventSource;
+
+            function getContentTbody() {
+                return document.getElementById("content").getElementsByTagName('tbody')[0];
+            }
+
+            function start(e) {
+                var input = document.getElementsByName("search-input")[0].value;
+                var counter = 0;
+
+                if (input == ""){
+                    alert('Поисковый запрос не может быть пустым!');
+                    return;
+                }
+
+                if (eventSource != null) {
+                    eventSource.close();
+                    var tableRef = getContentTbody();
+                    for (var i = tableRef.rows.length - 1; i >= 1 ; i--) {
+                        tableRef.deleteRow(i)
+                    }
+                    tableRef.rows[0].classList.remove("hidden");
+                    console.log("Соединение закрыто");
+                }
+
+                if (!window.EventSource) {
+                    alert('В этом браузере нет поддержки EventSource!');
+                    return;
+                }
+
+                eventSource = new EventSource('/service');
+
+                eventSource.onopen = function(e) {
+                    getContentTbody().rows[0].classList.add("hidden");
+                    console.log("Соединение открыто");
+                };
+
+                eventSource.onerror = function(e) {
+                    if (this.readyState == EventSource.CONNECTING) {
+                        console.log("Соединение порвалось, пересоединяемся...");
+                    } else {
+                        console.log("Ошибка, состояние: " + this.readyState);
+                    }
+                };
+
+                eventSource.addEventListener('bye', function(e) {
+                    console.log("Bye: " + e.data);
+                }, false);
+
+                eventSource.onmessage = function(e) {
+                    var data = JSON.parse(e.data);
+                    counter++;
+                    console.log(e);
+                    var tableRef = getContentTbody();
+                    var newRow = tableRef.insertRow(tableRef.rows.length);
+                    newRow.className = "fade-in is-paused green";
+                    newRow.innerHTML = "<td>" + counter + "</td><td>" + data["content"] + "</td>";
+                    newRow.classList.remove('is-paused');
+                };
+            }
+
+        </script>
+
     </head>
     <body>
-        <h1>Заголовок</h1>
-        <!-- Коммент -->
-        <p>1 пункт.</p>
-        <p>2 пункт.</p>
+        <h3 class="tableName" align="center">Поисковый аггрегатор</h3>
+
+        <form class="search">
+            <input name="search-input" placeholder="Искать..." class="input"  />
+            <input name="" value="" class="submit" onclick="start()" />
+        </form>
+
+
+        <br>
+        <br>
+        <table class="bordered" id="content">
+            <thead>
+                <tr>
+                    <th style="width: 50px">№</th>
+                    <th style="cursor:help;">Ссылка и описание</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- yellow, green, red, purple -->
+                <tr class="purple">
+                    <td></td>
+                    <td>Данные отсутствуют!</td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>

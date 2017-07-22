@@ -31,7 +31,7 @@ public class FunctionalWebApplication {
             route(
                 GET("/"), hello)
             .andRoute(
-                GET("/json"), req -> ok().contentType(TEXT_EVENT_STREAM).body(Flux.range(0, 100).map(String::valueOf).map(Hello::new).delayElements(Duration.ofSeconds(2)), Hello.class));
+                GET("/service"), req -> ok().contentType(TEXT_EVENT_STREAM).body(Flux.range(0, 100).map(String::valueOf).map(Hello::new).delayElements(Duration.ofSeconds(2)), Hello.class));
     }
 
     public static void main(String[] args) throws IOException, LifecycleException, InterruptedException {
