@@ -19,7 +19,7 @@ public class FunctionalWebApplicationTests {
         webTestClient.get().uri("/").exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody(String.class)
-                .isEqualTo(HtmlSupplier.getHtml("index.html"));
+                .isEqualTo(ResourceSupplier.getResource("index.html"));
     }
 
     @Ignore

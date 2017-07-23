@@ -12,7 +12,7 @@ import reactor.ipc.netty.http.server.HttpServer;
 import java.io.IOException;
 import java.time.Duration;
 
-import static com.thesn.search.aggregator.HtmlSupplier.getHtml;
+import static com.thesn.search.aggregator.ResourceSupplier.getResource;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 import static org.springframework.http.MediaType.TEXT_HTML;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
@@ -29,7 +29,7 @@ public class FunctionalWebApplication {
                 GET("/"), request ->
                             ok().contentType(TEXT_HTML)
                                     .body(
-                                            Mono.just(getHtml("index.html"))
+                                            Mono.just(getResource("index.html"))
                                             , String.class)
             )
             .andRoute(
@@ -54,6 +54,7 @@ public class FunctionalWebApplication {
                 .create("localhost", 8080)
                 .newHandler(new ReactorHttpHandlerAdapter(httpHandler))
                 .block();
+
 
         Thread.currentThread().join();
     }

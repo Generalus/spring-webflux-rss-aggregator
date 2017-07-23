@@ -9,20 +9,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public final class HtmlSupplier {
+public final class ResourceSupplier {
 
     private static final Map<String, String> resources;
 
     static {
         resources = new HashMap<>();
-        registerHtml("index.html");
+        registerResource("index.html");
     }
 
-    public static String getHtml(String name) {
+    public static String getResource(String name) {
         return resources.get(name);
     }
 
-    private static void registerHtml(String path) {
+    private static void registerResource(String path) {
         try {
             resources.put(path,
                     new BufferedReader(
