@@ -1,6 +1,6 @@
 package com.thesn.search.aggregator;
 
-public class Hello {
+public class Event {
     private String content;
 
     private int number;
@@ -17,10 +17,10 @@ public class Hello {
         return content;
     }
 
-    public Hello() {
+    public Event() {
     }
 
-    public Hello(String content) {
+    public Event(String content) {
         this.content = content;
         number = 10;
     }

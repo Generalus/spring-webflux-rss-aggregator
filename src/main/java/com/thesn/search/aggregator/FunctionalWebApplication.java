@@ -3,7 +3,6 @@ package com.thesn.search.aggregator;
 import org.apache.catalina.LifecycleException;
 import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
-import org.springframework.web.reactive.function.server.HandlerFunction;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import reactor.core.publisher.Flux;
@@ -25,13 +24,26 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 public class FunctionalWebApplication {
 
     static RouterFunction getRouter() {
-        HandlerFunction hello = request -> ok().contentType(TEXT_HTML).body(Mono.just(getHtml("index.html")), String.class);
-
         return
             route(
-                GET("/"), hello)
+                GET("/"), request ->
+                            ok().contentType(TEXT_HTML)
+                                    .body(
+                                            Mono.just(getHtml("index.html"))
+                                            , String.class)
+            )
             .andRoute(
-                GET("/service"), req -> ok().contentType(TEXT_EVENT_STREAM).body(Flux.range(0, 100).map(String::valueOf).map(Hello::new).delayElements(Duration.ofSeconds(2)), Hello.class));
+                GET("/service/{query}"), req ->
+                            ok().contentType(TEXT_EVENT_STREAM)
+                                    .body(
+                                            Flux.range(0, 100)
+                                                    .map(String::valueOf)
+                                                    .map(e -> e + " " + req.pathVariable("query").toUpperCase())
+                                                    .map(Event::new)
+                                                    .delayElements(Duration.ofSeconds(2))
+                                            , Event.class
+                                    )
+            );
     }
 
     public static void main(String[] args) throws IOException, LifecycleException, InterruptedException {

@@ -1,7 +1,5 @@
 package com.thesn.search.aggregator;
 
-import com.thesn.search.aggregator.FunctionalWebApplication;
-import com.thesn.search.aggregator.Hello;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -29,12 +27,12 @@ public class FunctionalWebApplicationTests {
         webTestClient.get().uri("/json").exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectHeader().contentType(APPLICATION_STREAM_JSON)
-                .expectBodyList(Hello.class)
+                .expectBodyList(Event.class)
                 .isEqualTo(
                         IntStream.range(0, 100)
                                 .boxed()
                                 .map(String::valueOf)
-                                .map(Hello::new)
+                                .map(Event::new)
                                 .collect(Collectors.toList())
                 );
     }
