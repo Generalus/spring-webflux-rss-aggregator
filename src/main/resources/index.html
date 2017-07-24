@@ -743,73 +743,72 @@
         <table class="bordered" id="content">
             <thead>
                 <tr>
-                    <th>Ссылка на вопрос</th>
-                    <th style="width: 80px">Тема</th>
+                    <th>Question link</th>
+                    <th style="width: 80px">Topic</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- yellow, green, red, purple -->
                 <tr class="red">
-                    <td>Данные отсутствуют!</td>
+                    <td>Data is not present!</td>
                     <td></td>
                 </tr>
             </tbody>
         </table>
 
         <script type="text/javascript">
+            var eventSource;
 
-                var eventSource;
+            function getContentTbody() {
+                return document.getElementById("content").getElementsByTagName('tbody')[0];
+            }
 
-                function getContentTbody() {
-                    return document.getElementById("content").getElementsByTagName('tbody')[0];
+            window.onload = function(){
+
+                if (!window.EventSource) {
+                    alert('В этом браузере нет поддержки EventSource!');
+                    return;
                 }
 
-                window.onload = function(){
+                eventSource = new EventSource('/service/');
 
-                    if (!window.EventSource) {
-                        alert('В этом браузере нет поддержки EventSource!');
-                        return;
-                    }
+                eventSource.onopen = function (e) {
+                    document.getElementById("load-entry").classList.remove("hidden");
+                    console.log("Соединение открыто");
+                };
 
-                    eventSource = new EventSource('/service/');
-
-                    eventSource.onopen = function (e) {
-                        document.getElementById("load-entry").classList.remove("hidden");
-                        console.log("Соединение открыто");
-                    };
-
-                    eventSource.onerror = function (e) {
-                        eventSource.close();
-                        document.getElementById("load-entry").classList.add("hidden");
-                        console.log("Соединение закрыто");
-                    };
+                eventSource.onerror = function (e) {
+                    eventSource.close();
+                    document.getElementById("load-entry").classList.add("hidden");
+                    console.log("Соединение закрыто");
+                };
 
 
-                    eventSource.onmessage = function (e) {
-                        var data = JSON.parse(e.data);
-                        console.log(e);
-                        if (data["url"] != null) {
-                            var tableRef = getContentTbody();
-                            var newRow = tableRef.insertRow(1);
-                            var color;
-                            if (data["source"] == "Java") {
-                                color = "green"
-                            } else if (data["source"] == "Javascript") {
-                                color = "yellow"
-                            } else {
-                                color = "purple";
-                            }
-
-                            newRow.className = "fade-in is-paused " + color;
-
-                            newRow.innerHTML = "<td>" + "<a href='" + data["url"] + "' target='_blank'>" + data["title"] + "</a>" + "</td><td>" + data["source"] + "</td>";
-                            newRow.classList.remove('is-paused');
-                            getContentTbody().rows[0].classList.add("hidden");
+                eventSource.onmessage = function (e) {
+                    var data = JSON.parse(e.data);
+                    console.log(e);
+                    var url = data["url"];
+                    if (url != null) {
+                        var tableRef = getContentTbody();
+                        var newRow = tableRef.insertRow(1);
+                        var color;
+                        var source = data["source"];
+                        if (source == "Java") {
+                            color = "green"
+                        } else if (source == "Javascript") {
+                            color = "yellow"
+                        } else {
+                            color = "purple";
                         }
-                    };
-                }
 
+                        newRow.className = "fade-in is-paused " + color;
 
+                        newRow.innerHTML = "<td>" + "<a href='" + url + "' target='_blank'>" + data["title"] + "</a>" + "</td><td>" + source + "</td>";
+                        newRow.classList.remove('is-paused');
+                        getContentTbody().rows[0].classList.add("hidden");
+                    }
+                };
+            }
         </script>
 
 

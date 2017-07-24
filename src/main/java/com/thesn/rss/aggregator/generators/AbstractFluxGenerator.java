@@ -40,14 +40,11 @@ abstract class AbstractFluxGenerator implements FluxGenerator {
                             }
 
                             // если горячих событий нет, отсылаем заглушку (пустое событие)
-                            if (eventsStack.isEmpty()) {
-                                sink.next(new Event());
-                            } else {
-                                sink.next(eventsStack.pollLast());
-                            }
+
+                            sink.next(eventsStack.isEmpty() ? new Event() : eventsStack.pollLast());
+
                         } catch (Exception e) {
                             Exceptions.propagate(e);
-                            sink.next(new Event());
                         }
                         return state;
                     }
