@@ -6,10 +6,12 @@ Technology stack: Spring Boot, Spring Web Flux, Reactor Core, Event sourcing, Ro
 
 Todo: keeping all entries in Mongo DB.
 
-### Downloading is completed
+# Screenshots
+
+### Some data is already loaded
 ![](http://s019.radikal.ru/i628/1707/41/11d1e6916c91.png)
 
-### Downloading is in progress
+### Downloading is in progress, but no data is present
 ![](http://s018.radikal.ru/i518/1707/de/75118a6b3115.png)
 
 ### Connection is lost
