@@ -1,7 +1,7 @@
 # spring-webflux-rss-aggregator
 
 This is a simple RSS-grabber (main and single page will be available in localhost:8080/ after deployment, it uses event-streaming /service/ ).
-Application registers three topics from StackOverflow (Java, Javascript and Python) and send the latest content to the webpage's visitors.
+Application registers three topics from StackOverflow (Java, Javascript and Python) and send the latest content to the webpage's visitors. RSS is updated slowly on the StackOverflow side, so, some data will be available at least in 2-3 minutes.
 
 Technology stack: Spring Boot, Spring Web Flux, Reactor Core, Event sourcing, Rome.
 
