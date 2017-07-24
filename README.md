@@ -8,11 +8,11 @@ Todo: keeping all entries in Mongo DB.
 
 # Screenshots
 
-### Some data is already loaded
+### Some data has been already loaded
 ![](http://s019.radikal.ru/i628/1707/41/11d1e6916c91.png)
 
 ### Downloading is in progress, but no data is present
 ![](http://s018.radikal.ru/i518/1707/de/75118a6b3115.png)
 
-### Connection is lost
-![](http://s018.radikal.ru/i504/1707/6f/46c90051348f.png)
+### Connection was lost
+![](http://s019.radikal.ru/i601/1707/55/080d085b432a.png)
