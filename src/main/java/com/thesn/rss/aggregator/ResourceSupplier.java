@@ -1,4 +1,4 @@
-package com.thesn.search.aggregator;
+package com.thesn.rss.aggregator;
 
 import org.springframework.core.io.ClassPathResource;
 
