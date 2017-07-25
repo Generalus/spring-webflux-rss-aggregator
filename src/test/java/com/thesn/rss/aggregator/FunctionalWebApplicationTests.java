@@ -1,5 +1,7 @@
 package com.thesn.rss.aggregator;
 
+import com.thesn.rss.aggregator.server.FunctionalWebApplication;
+import com.thesn.rss.aggregator.server.ResourceSupplier;
 import org.junit.Test;
 import org.springframework.test.web.reactive.server.WebTestClient;
 

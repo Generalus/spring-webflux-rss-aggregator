@@ -1,4 +1,4 @@
-package com.thesn.rss.aggregator;
+package com.thesn.rss.aggregator.model;
 
 
 import java.util.Date;
@@ -11,7 +11,7 @@ public class FluxState {
 
     public FluxState() {
         this.actualEvents = new LinkedList<>();
-        actualDate = new Date();
+        this.actualDate = new Date();
     }
 
     public LinkedList<Event> getActualEvents() {
@@ -22,7 +22,7 @@ public class FluxState {
         return actualDate;
     }
 
-    public void setActualDate(Date actualDate) {
+    public void setActualDate(final Date actualDate) {
         this.actualDate = actualDate;
     }
 }

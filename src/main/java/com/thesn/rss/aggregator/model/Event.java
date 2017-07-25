@@ -1,4 +1,4 @@
-package com.thesn.rss.aggregator;
+package com.thesn.rss.aggregator.model;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(String url, String title, String source, Date date) {
+    public Event(final String url, final String title, final String source, final Date date) {
         this.url = url;
         this.title = title;
         this.source = source;
@@ -36,16 +36,14 @@ public class Event {
         return source;
     }
 
+
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

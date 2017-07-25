@@ -1,4 +1,4 @@
-package com.thesn.rss.aggregator;
+package com.thesn.rss.aggregator.server;
 
 import org.springframework.core.io.ClassPathResource;
 
@@ -18,11 +18,11 @@ public final class ResourceSupplier {
         registerResource("index.html");
     }
 
-    public static String getResource(String name) {
+    public static String getResource(final String name) {
         return resources.get(name);
     }
 
-    private static void registerResource(String path) {
+    private static void registerResource(final String path) {
         try {
             resources.put(path,
                     new BufferedReader(
