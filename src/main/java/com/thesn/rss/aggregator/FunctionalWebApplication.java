@@ -1,7 +1,6 @@
 package com.thesn.rss.aggregator;
 
 import org.apache.catalina.LifecycleException;
-import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -14,11 +13,9 @@ import reactor.ipc.netty.http.server.HttpServer;
 import java.io.IOException;
 
 
-import static com.thesn.rss.aggregator.generators.FluxGeneratorFactory.generateEventFlux;
-import static com.thesn.rss.aggregator.generators.FluxName.*;
+import static com.thesn.rss.aggregator.FluxKind.*;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 import static org.springframework.http.MediaType.TEXT_HTML;
-import static org.springframework.http.MediaType.TEXT_PLAIN;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -41,9 +38,9 @@ public class FunctionalWebApplication {
                                 ok().contentType(TEXT_EVENT_STREAM)
                                     .body(
                                             Flux.just(new Event())  // даем клиенту понять, что соединение установлено
-                                                    .mergeWith(generateEventFlux(JAVA))
-                                                    .mergeWith(generateEventFlux(JAVASCRIPT))
-                                                    .mergeWith(generateEventFlux(PYTHON))
+                                                    .mergeWith(JAVA.get())
+                                                    .mergeWith(JAVASCRIPT.get())
+                                                    .mergeWith(PYTHON.get())
                                                     .distinct(),
                                             Event.class
                                     )
@@ -60,10 +57,6 @@ public class FunctionalWebApplication {
                 .create("localhost", 8080)
                 .newHandler(new ReactorHttpHandlerAdapter(httpHandler))
                 .block();
-
-        generateEventFlux(JAVA);
-        generateEventFlux(JAVASCRIPT);
-        generateEventFlux(PYTHON);
 
         Thread.currentThread().join();
     }

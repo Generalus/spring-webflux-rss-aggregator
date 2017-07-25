@@ -1,11 +1,10 @@
-package com.thesn.rss.aggregator.generators;
+package com.thesn.rss.aggregator;
 
-import com.thesn.rss.aggregator.Event;
 
 import java.util.Date;
 import java.util.LinkedList;
 
-class FluxState {
+public class FluxState {
     private LinkedList<Event> actualEvents;
 
     private Date actualDate;

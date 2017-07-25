@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Event {
 
-    private String url;    // служит id события
+    private String url;    // represents event id
 
-    private String title;  // заголовок поста
+    private String title;  // stackoverflow post title
 
     private String source; // непосредственный источник события
 
