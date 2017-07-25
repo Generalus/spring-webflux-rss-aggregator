@@ -3,6 +3,7 @@ package com.thesn.rss.aggregator.model;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.LoggerFactory;
 import reactor.core.Exceptions;
 import reactor.core.publisher.Flux;
@@ -55,10 +56,9 @@ public enum FluxKind {
                 List<SyndEntry> rssEntries = new SyndFeedInput()
                         .build(new XmlReader(feedUrl))
                         .getEntries();
-
                 rssEntries
                         .stream()
-                        .map(e -> new Event(e.getLink(), e.getTitle(), rssName, e.getPublishedDate()))
+                        .map(e -> new Event(e.getLink(), StringEscapeUtils.escapeHtml4(e.getTitle()), rssName, e.getPublishedDate()))
                         .filter(e -> e.getDate().compareTo(state.getActualDate()) > 0)
                         .forEach(eventsStack::add);
 
