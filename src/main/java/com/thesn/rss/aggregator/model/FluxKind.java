@@ -3,6 +3,7 @@ package com.thesn.rss.aggregator.model;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import com.thesn.rss.aggregator.repository.EventRepository;
 import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.LoggerFactory;
 import reactor.core.Exceptions;
@@ -24,6 +25,7 @@ public enum FluxKind {
     String rssName;
     Flux<Event> cachedFlux;
 
+    EventRepository eventRepository = EventRepository.getInstance();
 
     public Flux<Event> connect() {
         return cachedFlux;
@@ -41,7 +43,9 @@ public enum FluxKind {
         return Flux.generate(FluxState::new, this::generate)
                 .map(Event.class::cast)
                 .delayElements(Duration.ofSeconds(5))
-                .doOnNext(System.out::println) // TODO put in a database instead
+                .doOnNext(event -> {
+                    if(event.getUrl()!=null) eventRepository.save(event);
+                })
                 .share();
     }
 
