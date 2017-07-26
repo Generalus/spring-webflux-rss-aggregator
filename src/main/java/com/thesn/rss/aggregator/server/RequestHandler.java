@@ -7,13 +7,11 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
-
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 import static org.springframework.http.MediaType.TEXT_HTML;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
-public final class RequestHandler {
+final class RequestHandler {
 
     public static Mono<ServerResponse> handleRootRequest(final ServerRequest request) {
         return ok()

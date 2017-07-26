@@ -5,11 +5,8 @@ import java.util.Date;
 public class Event {
 
     private String url;    // represents event id
-
     private String title;  // stackoverflow post title
-
-    private String source; // непосредственный источник события
-
+    private String source; // rss that was emitted this event
     private Date date;
 
     public Event() {

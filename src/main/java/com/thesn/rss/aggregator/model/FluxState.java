@@ -4,7 +4,7 @@ package com.thesn.rss.aggregator.model;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class FluxState {
+class FluxState {
     private LinkedList<Event> actualEvents;
 
     private Date actualDate;

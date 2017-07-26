@@ -15,7 +15,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 public class FunctionalWebApplication {
 
-    public static RouterFunction getRouter() {
+    static RouterFunction getRouter() {
         return route(GET("/"), RequestHandler::handleRootRequest)
                 .andRoute(GET("/service/"), RequestHandler::handleEventStreamRequest);
 

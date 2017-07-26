@@ -21,9 +21,7 @@ public enum FluxKind {
     PYTHON("https://stackoverflow.com/feeds/tag?tagnames=python&sort=newest", "Python");
 
     String rssUrl;
-
     String rssName;
-
     Flux<Event> cachedFlux;
 
 
@@ -58,7 +56,14 @@ public enum FluxKind {
                         .getEntries();
                 rssEntries
                         .stream()
-                        .map(e -> new Event(e.getLink(), StringEscapeUtils.escapeHtml4(e.getTitle()), rssName, e.getPublishedDate()))
+                        .map(e ->
+                                new Event(
+                                        e.getLink(),
+                                        StringEscapeUtils.escapeHtml4(e.getTitle()),
+                                        rssName,
+                                        e.getPublishedDate()
+                                )
+                        )
                         .filter(e -> e.getDate().compareTo(state.getActualDate()) > 0)
                         .forEach(eventsStack::add);
 

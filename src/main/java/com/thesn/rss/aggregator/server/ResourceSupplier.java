@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public final class ResourceSupplier {
+final class ResourceSupplier {
 
     private static final Map<String, String> resources;
 
