@@ -1,4 +1,4 @@
-package com.thesn.rss.aggregator.model;
+package streamGenerator;
 
 import java.util.Date;
 

@@ -1,17 +1,17 @@
-package com.thesn.rss.aggregator.server;
+package ui;
 
-import com.thesn.rss.aggregator.model.Event;
-import com.thesn.rss.aggregator.model.FluxKind;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import streamGenerator.Event;
+import streamGenerator.FluxKind;
 
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 import static org.springframework.http.MediaType.TEXT_HTML;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
-final class RequestHandler {
+public class RequestHandler {
 
     public static Mono<ServerResponse> handleRootRequest(final ServerRequest request) {
         return ok()

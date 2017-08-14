@@ -1,4 +1,4 @@
-package com.thesn.rss.aggregator.server;
+package ui;
 
 import org.springframework.core.io.ClassPathResource;
 
