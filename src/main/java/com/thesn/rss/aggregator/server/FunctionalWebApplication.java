@@ -1,11 +1,13 @@
 package com.thesn.rss.aggregator.server;
 
 import org.apache.catalina.LifecycleException;
+import org.apache.tomcat.jni.Thread;
 import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import reactor.ipc.netty.http.server.HttpServer;
+import ui.*;
 
 import java.io.IOException;
 
@@ -30,7 +32,7 @@ public class FunctionalWebApplication {
                 .newHandler(new ReactorHttpHandlerAdapter(httpHandler))
                 .block();
 
-        Thread.currentThread().join();
+        Thread.current();
     }
 
 
