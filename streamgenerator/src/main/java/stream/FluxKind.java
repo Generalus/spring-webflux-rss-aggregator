@@ -1,4 +1,4 @@
-package com.thesn.rss.aggregator.model;
+package stream;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.io.SyndFeedInput;

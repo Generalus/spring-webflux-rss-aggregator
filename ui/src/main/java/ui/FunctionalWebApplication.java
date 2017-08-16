@@ -1,4 +1,4 @@
-package com.thesn.rss.aggregator.server;
+package ui;
 
 import org.apache.catalina.LifecycleException;
 import org.springframework.http.server.reactive.HttpHandler;

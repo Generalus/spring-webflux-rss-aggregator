@@ -1,11 +1,11 @@
-package com.thesn.rss.aggregator.server;
+package ui;
 
-import com.thesn.rss.aggregator.model.Event;
-import com.thesn.rss.aggregator.model.FluxKind;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import stream.Event;
+import stream.FluxKind;
 
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
 import static org.springframework.http.MediaType.TEXT_HTML;
